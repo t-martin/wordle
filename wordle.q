@@ -27,9 +27,8 @@ new_game:{[x]
 draw_board:{[x]
   clear LINES;
   LINES::0;
-  print "\n",K:"---------------------";
-  print "      Wordle";
-  print K;
+  print "\n+-------------------+";
+  print "|       ",green["Wordle"],"      |";
   print BOARD;
   if[10h=type x; print x];
   $[GAME_OVER;
@@ -51,7 +50,7 @@ guess:{[x]
   };
 
 check:{[x]
-  str:{[x;y]$[x~WORD y;green;x in WORD;yellow;[rem x;::]] x}'[x;til 5];
+  str:{[x;y]$[x~WORD y;green;x in WORD;yellow;[rem x;red]] x}'[x;til 5];
   str:(raze{"| ",x," "}each str),"|";
   BOARD[-1+2*ATTEMPT]:str;
   ATTEMPT+::1;
