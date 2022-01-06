@@ -5,6 +5,6 @@ q wordle.q
 6 guesses
 Green indicates right letter in the right place
 Yellow indicates right letter in the wrong place
-White indicates letter that doesn't exist in the word
+Red indicates letter that doesn't exist in the word
 
 ![Wordle](wordle.png "Wordle")
