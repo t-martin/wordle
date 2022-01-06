@@ -5,13 +5,14 @@ LINES:0;
 
 green:{"\033[38;05;10m",x,"\033[0m"};
 yellow:{"\033[38;05;11m",x,"\033[0m"};
+red:{"\033[38;05;9m",x,"\033[0m"};
 rem:{[x] AVAIL::AVAIL except x};
 clear:{[x] do[x;1"\033[1A";1"\033[2K"]};
 print0:{[x;y] LINES+::$[10h=type x;1+sum x="\n";count[x]+sum "\n"=raze x];y x};
 print:{[x] print0[x;-1]};
 printX:{[x] print0[x;1]};
 read:{[] printX "\nAttempt ",string[ATTEMPT],": ";guess read0 0};
-ask:{[] printX  "\nNew game? [y/Y]: ";ans:first read0 0; $[ans in "yY"; new_game[]; exit0]}
+ask:{[] printX  "\nNew game? [y/Y]: ";ans:first read0 0; $[ans in "yY"; new_game[]; exit 0]}
 
 new_game:{[x]
   GAME_OVER::0b;
@@ -41,10 +42,10 @@ guess:{[x]
   if[x~"\\\\"; exit 0];
   x:trim upper x;
   if[5 <> count x;
-    :draw_board "Guess can only be 5 characters";
+    :draw_board red "Guess can only be 5 characters!";
     ];
   if[not all x in .Q.A;
-    :draw_board "Guess can only contain letters";
+    :draw_board red "Guess can only contain letters!";
     ];
   check x;
   };
@@ -60,7 +61,7 @@ check:{[x]
     ];
   if[ATTEMPT > MAX_ATTEMPTS;
     GAME_OVER::1b;
-    :draw_board "You lose. The word was: ",green WORD;
+    :draw_board "You lose. The word was: ",red WORD;
     ];
   draw_board[];
   };
